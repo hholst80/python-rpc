@@ -1,6 +1,9 @@
 import pickle
 import zmq
 
+def _callable(*args, **kwargs):
+    raise NotImplementedError()
+
 class Server(object):
     def __init__(self, proxy_object, *, address='tcp://0.0.0.0:4000'):
         context = zmq.Context()
@@ -27,6 +30,8 @@ class Server(object):
                     msg = msg(*args, **kwargs)
             except Exception as e:
                 msg = e
+            if callable(msg):
+                msg = _callable
             packed_msg = pickle.dumps(msg)
             socket.send(packed_msg)
 

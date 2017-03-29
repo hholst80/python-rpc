@@ -4,3 +4,4 @@ TODO:
 
 * Stack trace on client side.
 * Factory function for servers.
+* GC client objects -> GC on server.
